@@ -15,7 +15,7 @@ public class WordNet {
         /**
          * implementation for reading synset files.
          */
-        FileReader file1 = new FileReader("E:\\ADS1\\ADS_2_2019501019\\ADS_2_2019501019\\Day_1\\"+s1);
+        FileReader file1 = new FileReader("E:\\ADS1\\ADS_2_2019501019\\ADS_2_2019501019\\Day_1\\Textfiles\\"+s1);
         BufferedReader br1 = new BufferedReader(file1);
         String str1;
         HashMap<Integer, String[]> h1 = new HashMap<Integer, String[]>();
@@ -43,7 +43,7 @@ public class WordNet {
         /**
          * Implementation for hypernymns file reading.
          */
-        FileReader file2 = new FileReader("E:\\ADS1\\ADS_2_2019501019\\ADS_2_2019501019\\Day_1\\"+s2);
+        FileReader file2 = new FileReader("E:\\ADS1\\ADS_2_2019501019\\ADS_2_2019501019\\Day_1\\Textfiles\\"+s2);
         BufferedReader br2 = new BufferedReader(file2);
         String str2;
         HashMap<Integer, String[]> h2 = new HashMap<Integer, String[]>();
