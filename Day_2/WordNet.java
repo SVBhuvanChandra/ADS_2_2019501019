@@ -2,13 +2,13 @@ import java.io.*;
 import java.util.*;
 
 /**
- * Class Wordnet to perform two methods for splitting files..
+ * Class Wordnet to perform two methods for splitting files.
  * 
  * @author S.V.Bhuvan Chandra
  */
 public class WordNet {
     /**
-     * Method to split synsets from the text file given.
+     * Method to split synsets from the text file given in string format as input.
      * 
      * @param s1 file name
      * @return splitted keys, values
