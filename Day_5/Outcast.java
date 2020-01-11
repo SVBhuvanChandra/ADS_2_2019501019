@@ -42,7 +42,7 @@ public class Outcast {
     public static void main(String[] args) {
 
         // /**
-        //  * Object creation for WordNet.
+        //  * Object for WordNet.
         //  */
         // WordNet wordnet = new WordNet("synsets.txt", "hypernyms.txt");
         // /** 
