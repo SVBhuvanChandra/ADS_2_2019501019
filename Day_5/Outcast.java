@@ -1,5 +1,5 @@
 import edu.princeton.cs.algs4.StdOut;
-import edu.princeton.cs.algs4.StdIn;
+// import edu.princeton.cs.algs4.StdIn;
 import java.io.IOException;
 import edu.princeton.cs.algs4.In;
 
@@ -11,7 +11,7 @@ public class Outcast {
     /**
      * Creating object for Word.
      */
-    WordNet wordn;
+    private final WordNet wordn;
     /**
      * Constructor for WordNet.
     */
@@ -21,16 +21,16 @@ public class Outcast {
     /**
      * Method to find the outcasted noun.
      */
-    public String Outcast(String[] nouns) {
+    public String outcast(String[] nouns) {
         int far = 0;
         String word = "";
         for (String word1 : nouns) {
-            int current_dist = 0;
+            int currentDist = 0;
             for (String word2 : nouns) {
-                current_dist = current_dist + wordn.distance(word1, word2);
+                currentDist = currentDist + wordn.distance(word1, word2);
             }
-            if (current_dist > far) {
-                far = current_dist;
+            if (currentDist > far) {
+                far = currentDist;
                 word = word1;
             }
         }
@@ -39,19 +39,28 @@ public class Outcast {
     /**
      * Main Method impelmentation.
      */
-    public static void main(String[] args) throws IOException {
-        /**
-         * Object creation for WordNet.
-         */
+    public static void main(String[] args) {
+
+        // /**
+        //  * Object creation for WordNet.
+        //  */
+        // WordNet wordnet = new WordNet("synsets.txt", "hypernyms.txt");
+        // /** 
+        //  * Object creation for Outcast.
+        // */
+        // Outcast outcast = new Outcast(wordnet);
+        // for (int t = 0; t < args.length; t++) {
+        //     In in = new In(args[t]);
+        //     String[] nouns = in.readAllStrings();
+        //     StdOut.println(args[t] + ": " + outcast.Outcast(nouns));
+        // }
+
         WordNet wordnet = new WordNet("synsets.txt", "hypernyms.txt");
-        /** 
-         * Object creation for Outcast.
-        */
         Outcast outcast = new Outcast(wordnet);
         for (int t = 0; t < args.length; t++) {
             In in = new In(args[t]);
             String[] nouns = in.readAllStrings();
-            StdOut.println(args[t] + ": " + outcast.Outcast(nouns));
-        }
+            StdOut.println(args[t] + ": " + outcast.outcast(nouns));
+    }
     }
 }
