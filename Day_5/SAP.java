@@ -62,18 +62,31 @@ public class SAP {
      * @return ancestor id.
      */
     public int ancestor(int v, int w) {
+        if (v == w) {
+            path = 0;
+            return v;
+        }
         /**
          * Filed to store a maximum distance value.
          */
         dist = Integer.MAX_VALUE;
-        /**
-         * Object of the Breadth first Directed paths.
-         */
-        bfs1 = new BreadthFirstDirectedPaths(d, v);
-        /**
-         * Object of the Breadth first Directed Paths.
-         */
-        bfs2 = new BreadthFirstDirectedPaths(d, w);
+
+        if ((v < 0 && v > d.V()) || (w < 0 && w > d.V())) {
+            return -1;
+        }
+        try {
+            /**
+             * Object of the Breadth first Directed paths.
+             */
+            bfs1 = new BreadthFirstDirectedPaths(d, v);
+            /**
+             * Object of the Breadth first Directed Paths.
+             */
+            bfs2 = new BreadthFirstDirectedPaths(d, w);
+        } catch (IllegalArgumentException e) {
+            System.err.println(e.getMessage());
+            return -1;
+        }
         for (int i = 0; i < d.V(); i++) {
             if (bfs1.hasPathTo(i) && bfs2.hasPathTo(i)) {
                 path = bfs1.distTo(i) + bfs2.distTo(i);
@@ -96,9 +109,9 @@ public class SAP {
      */
     public int length(Iterable<Integer> v, Iterable<Integer> w) {
         ancestor(v, w);
-        if (v == w) {
-            return 0;
-        }
+        // if (v == w) {
+        //     return 0;
+        // }
         return path;
     }
  
@@ -117,6 +130,9 @@ public class SAP {
          * Filed to store Ancestor ID.
          */
         int aa = -1;
+        try {
+            if (v == null || w == null) throw new IllegalArgumentException();
+        } catch (IllegalArgumentException e) {}
         /**
          * Object for BreadthFirstDirectedPaths.
          */

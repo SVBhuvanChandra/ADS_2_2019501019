@@ -1,6 +1,4 @@
 import edu.princeton.cs.algs4.StdOut;
-// import edu.princeton.cs.algs4.StdIn;
-// import java.io.IOException;
 import edu.princeton.cs.algs4.In;
 
 /**
@@ -40,27 +38,12 @@ public class Outcast {
      * Main Method impelmentation.
      */
     public static void main(String[] args) {
-
-        // /**
-        //  * Object for WordNet.
-        //  */
-        // WordNet wordnet = new WordNet("synsets.txt", "hypernyms.txt");
-        // /** 
-        //  * Object creation for Outcast.
-        // */
-        // Outcast outcast = new Outcast(wordnet);
-        // for (int t = 0; t < args.length; t++) {
-        //     In in = new In(args[t]);
-        //     String[] nouns = in.readAllStrings();
-        //     StdOut.println(args[t] + ": " + outcast.Outcast(nouns));
-        // }
-
         WordNet wordnet = new WordNet("synsets.txt", "hypernyms.txt");
         Outcast outcast = new Outcast(wordnet);
         for (int t = 0; t < args.length; t++) {
             In in = new In(args[t]);
             String[] nouns = in.readAllStrings();
             StdOut.println(args[t] + ": " + outcast.outcast(nouns));
-    }
+        }
     }
 }

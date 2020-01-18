@@ -1,10 +1,13 @@
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
 import edu.princeton.cs.algs4.Digraph;
+// import java.io.FileNotFoundException;
+import java.lang.IllegalArgumentException;
 
 /**
  * Class WordNet implementation.
@@ -66,7 +69,9 @@ public class WordNet {
          */
         // FileReader file1 = new FileReader("E:\\ADS1\\ADS_2_2019501019\\ADS_2_2019501019\\Day_1\\Textfiles\\" + filename);
         File file1 = new File("E:\\ADS1\\ADS_2_2019501019\\ADS_2_2019501019\\Day_1\\Textfiles\\" + filename);
-        try (Scanner sc = new Scanner(file1)) {
+        Scanner sc = null;
+        try {
+            sc = new Scanner(file1);
             while (sc.hasNextLine()) {
                 String line1 = sc.nextLine();
                 String[] temp1 = line1.split(",");
@@ -88,10 +93,15 @@ public class WordNet {
             }
         }
         catch (IOException e) {
-            System.out.println("File not found");
+            System.err.println("File not found");
         }
         catch (IndexOutOfBoundsException e) {
-            System.out.println("Index out of Bounds");
+            System.err.println("Index out of Bounds");
+        }
+        finally {
+            if (sc != null) {
+                sc.close();
+            }
         }
     }
     /**
@@ -106,8 +116,9 @@ public class WordNet {
         // FileReader file2 = new FileReader("E:\\ADS1\\ADS_2_2019501019\\ADS_2_2019501019\\Day_1\\Textfiles\\" + filename);
         File file2 = new File("E:\\ADS1\\ADS_2_2019501019\\ADS_2_2019501019\\Day_1\\Textfiles\\" + filename);
         // BufferedReader br2 = new BufferedReader(file2);
-
-        try (Scanner sc = new Scanner(file2)) {
+        Scanner sc = null;
+        try {
+            sc = new Scanner(file2);
             ArrayList<Integer> al2;
             while (sc.hasNextLine()) {
                 String line2 = sc.nextLine();
@@ -128,11 +139,16 @@ public class WordNet {
                 }
             }
         }
-        catch (IOException e) {
-            System.out.println("File Not Found");
+        catch (FileNotFoundException e) {
+            System.err.println(e.getMessage());
         }
         catch (IndexOutOfBoundsException e) {
-            System.out.println("Index Out Of Bounds");
+            System.err.println(e.getMessage());
+        }
+        finally {
+            if (sc != null) {
+                sc.close();
+            }
         }
 }
 /**
@@ -156,7 +172,8 @@ public Iterable<String> nouns() {
  */
 public boolean isNoun(String word) {
     if (word == null) {
-        return false;
+        throw new IllegalArgumentException();
+        // return false;
     }
     else {
         return h1.containsKey(word);
@@ -169,7 +186,13 @@ public boolean isNoun(String word) {
  * @return distance or -1 if words are not connected.
  */
 public int distance(String nounA, String nounB) {
+    if (nounA == null || nounB == null) {
+        throw new IllegalArgumentException();
+    }
     if (isNoun(nounA) && isNoun(nounB)) {
+        if (nounA == nounB) {
+            return 0;
+        }
         /**
          * Filed to store the distnace.
          */
@@ -186,14 +209,22 @@ public int distance(String nounA, String nounB) {
  * @return ancestor.
  */
 public String sap(String nounA, String nounB) {
+    if (nounA == null || nounB == null) {
+        throw new IllegalArgumentException();
+    }
     if (isNoun(nounA) && isNoun(nounB)) {
         /**
          * Filed to store the id of the ancestor.
          */
         int anc = sap1.ancestor(h1.get(nounA), h1.get(nounB));
-        return slist.get(anc);
+        if (anc != -1) {
+            return slist.get(anc);
+        } else {
+            return "No common ancestor available";
+        }
+    } else {
+        return "Not a valid noun";
     }
-    return "Not a valid noun";
 }
     /**
      * Main method implementation.
@@ -201,17 +232,18 @@ public String sap(String nounA, String nounB) {
      * @throws IOException input /output exceptions.
      */
     public static void main(String[] args) {
-        /**
-         * Creating object for WordNet.
-         */
+        // /**
+        //  * Creating object for WordNet.
+        //  */
         WordNet wnn = new WordNet("synsets.txt", "hypernyms.txt");
-        // for (int v = 0; v < wnn.dg.V(); v++) {
-        //     for (int w : wnn.dg.adj(v)){
-        //         // System.out.println(v + "->" + w);
-        //     }
-        // }
-        // System.out.println("vertices : " + wnn.dg.V());
-        // System.out.println("edges : " + wnn.dg.E());
-        System.out.println("The distance : "+wnn.distance("calcium_ion", "casein"));
+        // // for (int v = 0; v < wnn.dg.V(); v++) {
+        // //     for (int w : wnn.dg.adj(v)){
+        // //         // System.out.println(v + "->" + w);
+        // //     }
+        // // }
+        // // System.out.println("vertices : " + wnn.dg.V());
+        // // System.out.println("edges : " + wnn.dg.E());
+        System.out.println("The distance : "+wnn.distance("secularization", "Untermeyer"));
+        System.out.println(wnn.isNoun("train"));
     }
 }
